@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='mkdocs-git-revision-date-plugin',
-    version='0.3.2',
-    description='MkDocs plugin for setting revision date from git per markdown file.',
+    name='mkdocs-git-revision-date-plugin-blame',
+    version='0.1.0',
+    description='MkDocs plugin for setting revision date from git per markdown file using blame.',
     keywords='mkdocs git meta yaml frontmatter',
-    url='https://github.com/zhaoterryy/mkdocs-git-revision-date-plugin/',
-    author='Terry Zhao',
-    author_email='zhao.terryy@gmail.com',
+    url='https://github.com/codyprupp/mkdocs-git-revision-date-plugin',
+    author='Cody Rupp',
+    author_email='crupp@ucsd.edu',
     license='MIT',
     license_files = ('LICENSE'),
     python_requires='>=3.4',
@@ -19,7 +19,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'mkdocs.plugins': [
-            'git-revision-date = mkdocs_git_revision_date_plugin.plugin:GitRevisionDatePlugin'
+            'git-revision-date-blame = mkdocs_git_revision_date_plugin_blame.plugin:GitRevisionDateBlamePlugin'
         ]
     }
 )
