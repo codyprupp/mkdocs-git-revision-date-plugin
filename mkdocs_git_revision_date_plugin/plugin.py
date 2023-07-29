@@ -55,12 +55,12 @@ class GitRevisionDatePlugin(BasePlugin):
                 return markdown
         else:
             markdown = re.sub(r"\{\{(\s)*git_revision_date(\s)*\}\}",
-                          revision_date,
+                          str(revision_date),
                           markdown,
                           flags=re.IGNORECASE)
 
             markdown = re.sub(r"\{\{\s*page\.meta\.git_revision_date\s*\}\}",
-                          revision_date,
+                          str(revision_date),
                           markdown,
                           flags=re.IGNORECASE)
             

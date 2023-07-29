@@ -1,4 +1,4 @@
-from git import Git
+from git.cmd import Git
 
 class Util:
 

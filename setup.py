@@ -16,7 +16,7 @@ setup(
         'GitPython',
         'jinja2'
     ],
-    packages=find_packages(),
+    packages=["mkdocs_git_revision_date_plugin"],
     entry_points={
         'mkdocs.plugins': [
             'git-revision-date-blame = mkdocs_git_revision_date_plugin_blame.plugin:GitRevisionDateBlamePlugin'
