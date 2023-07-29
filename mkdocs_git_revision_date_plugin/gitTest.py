@@ -1,7 +1,8 @@
 import git
+import git.repo
 import datetime
 
-myRepo = git.Repo("C:/Users/Cody/Desktop/TUAS/wiki")
+myRepo = git.repo.Repo("C:/Users/Cody/tuas/wiki")
 
 # print(myRepo.commit('bdea42410c5655e1e9505b3d87099897716987a0').)
 
