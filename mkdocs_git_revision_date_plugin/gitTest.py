@@ -14,13 +14,12 @@ currOutput = myRepo.blame(myRepo.head, "docs/embedded/electronics-diagram.md")
 
 blameTimes = []
 
-def listBlame(blameIter):
-    for blame in blameIter:
-        rawEpochTime = blame.commit.authored_date
-        timeSince = datetime.datetime.fromtimestamp(rawEpochTime).strftime('%Y-%m-%d') # add %H:%M:%S for specific time
-        blameTimes.append(timeSince)
+for blame in blameIter:
+    rawEpochTime = blame.commit.authored_date # type: ignore (not sure why this gives an error; it works fine)
+    print(rawEpochTime)
+    timeSince = datetime.datetime.fromtimestamp(rawEpochTime).strftime('%Y-%m-%d') # add %H:%M:%S for specific time
+    blameTimes.append(timeSince)
 
-listBlame(blameIter)
 print(blameTimes)
 
 def getMostRecentTime(times):

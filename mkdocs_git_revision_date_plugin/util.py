@@ -1,5 +1,7 @@
 from git.cmd import Git
+import git.repo
 import datetime
+import os
 
 class Util:
 
@@ -17,13 +19,14 @@ class Util:
     def get_revision_date_for_file(self, path: str):
 
         # get the raw blame for the file
-        blameIter = self.g.blame_incremental(path)
+        repo = git.repo.Repo(os.getcwd)
+        blameIter = repo.blame_incremental(repo.head, path)
 
         blameTimes = []
 
         # extract each blame's date in the form YYYY-MM-DD
         for blame in blameIter:
-            rawEpochTime = blame.commit.authored_date
+            rawEpochTime = blame.commit.authored_date # type: ignore (not sure why this gives an error; it works fine)
             timeSince = datetime.datetime.fromtimestamp(rawEpochTime).strftime('%Y-%m-%d') # add %H:%M:%S for specific time
             blameTimes.append(timeSince)
 
@@ -43,7 +46,7 @@ class Util:
                 mostRecentTime = time
             elif (year == mostRecentTimeYear and month > mostRecentTimeMonth):
                 mostRecentTime = time
-            elif (year == mostRecentTimeYear and month == mostRecentTimeMonth and mostRecentTimeDay > mostRecentTimeDay):
+            elif (year == mostRecentTimeYear and month == mostRecentTimeMonth and day > mostRecentTimeDay):
                 mostRecentTime = time
 
         return mostRecentTime
