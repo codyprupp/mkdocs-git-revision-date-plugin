@@ -32,6 +32,8 @@ class GitRevisionDatePlugin(BasePlugin):
 
         revision_date = self.util.get_revision_date_for_file(page.file.abs_src_path)
 
+
+        # TODO: if the file has no git logs, it could be empty. default to date the file was created instead?
         if not revision_date:
             revision_date = datetime.now().date().strftime('%Y-%m-%d')
             print('WARNING -  %s has no git logs, revision date defaulting to today\'s date' % page.file.src_path)
