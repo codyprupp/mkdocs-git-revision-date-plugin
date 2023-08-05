@@ -1,4 +1,5 @@
 import git
+from git.cmd import Git
 import git.repo
 import datetime
 
@@ -7,7 +8,9 @@ myRepo = git.repo.Repo("C:/Users/Cody/tuas/wiki")
 # print(myRepo.commit('bdea42410c5655e1e9505b3d87099897716987a0').)
 
 # iterator for each blame 'chunk' of the file
-blameIter = myRepo.blame_incremental(myRepo.head, "docs/general/repo_guide.md")
+path = "docs/airframe/packing_list.md"
+blameIter = myRepo.blame_incremental(myRepo.head, path)
+g = Git("C:/Users/Cody/tuas/wiki/")
 currOutput = myRepo.blame(myRepo.head, "docs/embedded/electronics-diagram.md")
 
 # print each timestamp of the git blame
@@ -19,11 +22,17 @@ for blame in blameIter:
     timeSince = datetime.datetime.fromtimestamp(rawEpochTime).strftime('%Y-%m-%d') # add %H:%M:%S for specific time
     blameTimes.append(timeSince)
 
-# print(blameTimes)
+print(blameTimes)
+
+if not blameTimes:
+    print('no blames; defaulting to git logs')
 
 def getMostRecentTime(times):
 
-    mostRecentTime = '0000-00-00'
+    if not times:
+        mostRecentTime = g.log(path, n=1, date='short', format='%ad')
+    else:
+        mostRecentTime = '0000-00-00'
 
     mostRecentTimeYear = int(mostRecentTime[0:4])
     mostRecentTimeMonth = int(mostRecentTime[5:7])
@@ -48,6 +57,9 @@ def getMostRecentTime(times):
         mostRecentTimeDay = int(mostRecentTime[8:10])
 
     # print(mostRecentTimeYear)
+
+    if (mostRecentTimeYear == 0):
+        return 
 
     # have to do this case because windows can't use the %-d strftime code. %e is the windows equivalent,
     #   but instead of actually removing the 0 padding, it prepends the number with a space, leaving some awkward gaps when the number has 2 digits.

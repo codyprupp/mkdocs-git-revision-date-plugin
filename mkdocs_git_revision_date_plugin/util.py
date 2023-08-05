@@ -30,7 +30,11 @@ class Util:
             timeSince = datetime.datetime.fromtimestamp(rawEpochTime).strftime('%Y-%m-%d') # add %H:%M:%S for specific time
             blameTimes.append(timeSince)
 
-        mostRecentTime = '0000-00-00'
+        # if there's no blame history (e.g. the file is empty), default to git logs
+        if not blameTimes:
+            mostRecentTime = self.g.log(path, n=1, date='short', format='%ad')
+        else:
+            mostRecentTime = '0000-00-00'
 
         mostRecentTimeYear = int(mostRecentTime[0:4])
         mostRecentTimeMonth = int(mostRecentTime[5:7])
