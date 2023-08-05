@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='mkdocs-git-revision-date-plugin-blame',
-    version='0.1.1',
+    version='0.1.2',
     description='MkDocs plugin for setting revision date from git per markdown file using blame.',
     keywords='mkdocs git meta yaml frontmatter',
     url='https://github.com/codyprupp/mkdocs-git-revision-date-plugin',
@@ -19,7 +19,7 @@ setup(
     packages=["mkdocs_git_revision_date_plugin"],
     entry_points={
         'mkdocs.plugins': [
-            'git-revision-date-blame = mkdocs_git_revision_date_plugin_blame.plugin:GitRevisionDateBlamePlugin'
+            'git-revision-date-blame = mkdocs_git_revision_date_plugin.plugin:GitRevisionDatePlugin'
         ]
     }
 )
