@@ -19,7 +19,7 @@ class Util:
     def get_revision_date_for_file(self, path: str):
 
         # get the raw blame for the file
-        repo = git.repo.Repo(os.getcwd)
+        repo = git.repo.Repo(os.getcwd())
         blameIter = repo.blame_incremental(repo.head, path)
 
         blameTimes = []
