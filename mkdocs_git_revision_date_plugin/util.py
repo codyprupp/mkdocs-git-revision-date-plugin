@@ -32,15 +32,15 @@ class Util:
 
         mostRecentTime = '0000-00-00'
 
+        mostRecentTimeYear = int(mostRecentTime[0:4])
+        mostRecentTimeMonth = int(mostRecentTime[5:7])
+        mostRecentTimeDay = int(mostRecentTime[8:10])
+
         # find most recent blame (to be displayed as last updated)
         for time in blameTimes:
             year = int(time[0:4])
             month = int(time[5:7])
             day = int(time[8:10])
-
-            mostRecentTimeYear = int(mostRecentTime[0:4])
-            mostRecentTimeMonth = int(mostRecentTime[5:7])
-            mostRecentTimeDay = int(mostRecentTime[8:10])
 
             if year > mostRecentTimeYear:
                 mostRecentTime = time
@@ -49,4 +49,15 @@ class Util:
             elif (year == mostRecentTimeYear and month == mostRecentTimeMonth and day > mostRecentTimeDay):
                 mostRecentTime = time
 
-        return mostRecentTime
+            mostRecentTimeYear = int(mostRecentTime[0:4])
+            mostRecentTimeMonth = int(mostRecentTime[5:7])
+            mostRecentTimeDay = int(mostRecentTime[8:10])
+
+
+        # have to do this case because windows can't use the %-d strftime code. %e is the windows equivalent,
+        #   but instead of actually removing the 0 padding, it prepends the number with a space, leaving some awkward gaps when the number has 2 digits.
+        #   tldr; gg windows sucks
+        if (mostRecentTimeDay < 10):
+            return datetime.date(mostRecentTimeYear,mostRecentTimeMonth,mostRecentTimeDay).strftime("%B%e, %Y")
+
+        return datetime.date(mostRecentTimeYear,mostRecentTimeMonth,mostRecentTimeDay).strftime("%B %d, %Y")
